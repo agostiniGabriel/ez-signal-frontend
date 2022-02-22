@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="120px" height="120px" viewBox="0 0 120 120" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <rect width="120" height="120" id="artboard_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#artboard_1" clip-rule="evenodd" />
+    </clipPath>
+  </defs>
+  <g id="Artboard" clip-path="url(#clip_1)">
+    <path d="M5 60C5 29.6243 29.6243 5 60 5C90.3757 5 115 29.6243 115 60C115 90.3757 90.3757 115 60 115C29.6243 115 5 90.3757 5 60Z" id="Ellipse-2" fill="#F9F8F8" fill-opacity="0" fill-rule="evenodd" stroke="#59ADFF" stroke-width="2" />
+    <path d="M9 60C9 31.8335 31.8335 9 60 9C88.1665 9 111 31.8335 111 60C111 88.1665 88.1665 111 60 111C31.8335 111 9 88.1665 9 60Z" id="Ellipse" fill="#59ADFF" fill-rule="evenodd" stroke="none" />
+    <g id="Group" transform="translate(12.5 9)">
+      <path d="M0 69.5L47.5 0" id="Line" fill="none" fill-rule="evenodd" stroke="#FFFFFF" stroke-width="3" stroke-linecap="square" />
+      <path d="M0 69.5L48 51" id="Line-3" fill="none" fill-rule="evenodd" stroke="#FFFFFF" stroke-width="3" stroke-linecap="square" />
+      <path d="M95 69.5L47.5 0" id="Line-4" fill="none" fill-rule="evenodd" stroke="#FFFFFF" stroke-width="3" stroke-linecap="square" />
+      <path d="M95 69.5L46 51" id="Line-5" fill="none" fill-rule="evenodd" stroke="#FFFFFF" stroke-width="3" stroke-linecap="square" />
+    </g>
+    <g id="Group-2" transform="matrix(1 0 0 -1 12.5 111)">
+      <path d="M0 69.5L47.5 0" id="Line" fill="none" fill-rule="evenodd" stroke="#FFFFFF" stroke-width="3" stroke-linecap="square" />
+      <path d="M0.5 69.5L47.5 51" id="Line-3" fill="none" fill-rule="evenodd" stroke="#FFFFFF" stroke-width="3" stroke-linecap="square" />
+      <path d="M95 69.5L47.5 0" id="Line-4" fill="none" fill-rule="evenodd" stroke="#FFFFFF" stroke-width="3" stroke-linecap="square" />
+      <path d="M95 69.5L48 51" id="Line-5" fill="none" fill-rule="evenodd" stroke="#FFFFFF" stroke-width="3" stroke-linecap="square" />
+    </g>
+  </g>
+</svg>
