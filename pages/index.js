@@ -2,59 +2,35 @@
  * @description       : 
  * @author            : Gabriel Agostini
  * @group             : 
- * @last modified on  : 21-02-2022
+ * @last modified on  : 22-02-2022
  * @last modified by  : Gabriel Agostini
 **/
 
-import styles from '../styles/Home.module.css'
+import { Flex, Heading, Text , Stack, Center, Tag , Box } from '@chakra-ui/react'
+import ProcessignTools from '../components/Home/ProcessingTools'
+import { motion } from 'framer-motion'
+
+const MotionBox = motion(Box)
 
 export default function Home() {
   return (
-    <div className={styles.container}>
-      
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      
-    </div>
+    <Flex alignItems='center' justifyContent='center' alignContent='center'>
+      <Stack alignItems='center' width='60%'>
+        <Flex flexDirection='row' alignItems='center'>
+          <Heading paddingBlockStart='8' textAlign='center'>
+            Bem vindo ao 
+          </Heading>
+          <MotionBox>
+            
+          </MotionBox>
+        </Flex>
+        <Center paddingBlockEnd='12'>
+          <Text fontSize='2xl'>
+            Ferramenta de processamento que permite realizar operações em imagens e aúdios.
+          </Text>
+        </Center> 
+        <ProcessignTools/>
+      </Stack>
+    </Flex>
   )
 }

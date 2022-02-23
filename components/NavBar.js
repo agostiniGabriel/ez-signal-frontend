@@ -2,7 +2,7 @@
  * @description       : Componente de navegacao entre as paginas
  * @author            : Gabriel Agostini
  * @group             : 
- * @last modified on  : 21-02-2022
+ * @last modified on  : 22-02-2022
  * @last modified by  : Gabriel Agostini
 **/
 import { Button, Flex, Stack , Divider , Heading } from '@chakra-ui/react';
@@ -68,7 +68,8 @@ export default function NavBar() {
                 ))
             }
             </Flex>
-        </Flex>
+            <Divider orientation='horizontal' width='100%' />
+        </Flex>      
     )
 
     function handleClick(event){
