@@ -1,24 +1,29 @@
 /**
- * @description       : 
+ * @description       :
  * @author            : Gabriel Agostini
- * @group             : 
- * @last modified on  : 22-02-2022
+ * @group             :
+ * @last modified on  : 09-10-2023
  * @last modified by  : Gabriel Agostini
-**/
-import '../styles/globals.css'
-import { ChakraProvider , extendTheme } from '@chakra-ui/react';
-import { createBreakpoints } from '@chakra-ui/theme-tools'
-import Layout from '../components/Layout';
+ **/
+import "../styles/globals.css";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { createBreakpoints } from "@chakra-ui/theme-tools";
+import Layout from "../components/Layout";
 
 const breakpoints = createBreakpoints({
-  sm: '320px',
-  md: '768px',
-  lg: '960px',
-  xl: '1200px',
-  '2xl': '1536px'
+  sm: "320px",
+  md: "768px",
+  lg: "960px",
+  xl: "1200px",
+  "2xl": "1536px",
 });
 
-const theme = extendTheme({ breakpoints });
+const themeConfig = {
+  initialColorMode: "dark",
+  useSystemColorMode: false,
+};
+
+const theme = extendTheme({ breakpoints, themeConfig });
 
 function EzSignal({ Component, pageProps }) {
   return (
@@ -27,7 +32,7 @@ function EzSignal({ Component, pageProps }) {
         <Component {...pageProps} />
       </Layout>
     </ChakraProvider>
-  )
+  );
 }
 
-export default EzSignal
+export default EzSignal;
