@@ -2,12 +2,13 @@
  * @description       :
  * @author            : Gabriel Agostini
  * @group             :
- * @last modified on  : 09-10-2023
+ * @last modified on  : 15-11-2023
  * @last modified by  : Gabriel Agostini
  **/
 import "../styles/globals.css";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { createBreakpoints } from "@chakra-ui/theme-tools";
+import { wrapper } from "../store/store";
 import Layout from "../components/Layout";
 
 const breakpoints = createBreakpoints({
@@ -35,4 +36,4 @@ function EzSignal({ Component, pageProps }) {
   );
 }
 
-export default EzSignal;
+export default wrapper.withRedux(EzSignal);

@@ -2,7 +2,7 @@
  * @description       : Componente de navegacao entre as paginas
  * @author            : Gabriel Agostini
  * @group             :
- * @last modified on  : 09-10-2023
+ * @last modified on  : 15-11-2023
  * @last modified by  : Gabriel Agostini
  **/
 import {
@@ -24,21 +24,21 @@ export default function NavBar() {
 
   useEffect(() => {
     const initialState = [
-      {
-        navLabel: "Home",
-        isSelected: false,
-        navPath: "/",
-      },
-      {
-        navLabel: "Docs",
-        isSelected: false,
-        navPath: "/docs",
-      },
-      {
-        navLabel: "Sobre",
-        isSelected: false,
-        navPath: "/sobre",
-      },
+      // {
+      //   navLabel: "Home",
+      //   isSelected: false,
+      //   navPath: "/",
+      // },
+      // {
+      //   navLabel: "Docs",
+      //   isSelected: false,
+      //   navPath: "/docs",
+      // },
+      // {
+      //   navLabel: "Sobre",
+      //   isSelected: false,
+      //   navPath: "/sobre",
+      // },
     ];
     const { pathname } = window.location;
 

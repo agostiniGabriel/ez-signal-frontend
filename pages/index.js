@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Gabriel Agostini
  * @group             :
- * @last modified on  : 09-10-2023
+ * @last modified on  : 15-11-2023
  * @last modified by  : Gabriel Agostini
  **/
 
@@ -57,12 +57,6 @@ export default function Home() {
             </MotionBox>
           </WaveBox>
         </Flex>
-        <Center paddingBlockEnd="12">
-          <Text fontSize="2xl">
-            Ferramenta de processamento que permite realizar operações em
-            imagens e aúdios.
-          </Text>
-        </Center>
         <ProcessignTools />
       </Stack>
     </Flex>
