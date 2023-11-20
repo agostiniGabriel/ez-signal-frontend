@@ -2,7 +2,7 @@
  * @description       : Componente container do layout de navbar e footer para todas as pag
  * @author            : Gabriel Agostini
  * @group             :
- * @last modified on  : 09-10-2023
+ * @last modified on  : 19-11-2023
  * @last modified by  : Gabriel Agostini
  **/
 import NavBar from "./NavBar";

@@ -2,21 +2,12 @@
  * @description       :
  * @author            : Gabriel Agostini
  * @group             :
- * @last modified on  : 15-11-2023
+ * @last modified on  : 19-11-2023
  * @last modified by  : Gabriel Agostini
  **/
 
-import {
-  Flex,
-  Heading,
-  Text,
-  Stack,
-  Center,
-  Tag,
-  Box,
-  Spacer,
-} from "@chakra-ui/react";
-import ProcessignTools from "../components/Home/ProcessingTools";
+import { Flex, Heading, Text, Stack, Box } from "@chakra-ui/react";
+import AppContainer from "../components/Home/AppContainer";
 import WaveBox from "../components/Home/WaveBox";
 import { motion } from "framer-motion";
 
@@ -57,7 +48,7 @@ export default function Home() {
             </MotionBox>
           </WaveBox>
         </Flex>
-        <ProcessignTools />
+        <AppContainer />
       </Stack>
     </Flex>
   );

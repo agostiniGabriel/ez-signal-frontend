@@ -2,22 +2,23 @@
  * @description       :
  * @author            : Gabriel Agostini
  * @group             :
- * @last modified on  : 15-11-2023
+ * @last modified on  : 19-11-2023
  * @last modified by  : Gabriel Agostini
  **/
 import "../styles/globals.css";
+import "../styles/flowCanvas.css";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import { createBreakpoints } from "@chakra-ui/theme-tools";
 import { wrapper } from "../store/store";
+import { Provider } from "react-redux";
 import Layout from "../components/Layout";
 
-const breakpoints = createBreakpoints({
+const breakpoints = {
   sm: "320px",
   md: "768px",
   lg: "960px",
   xl: "1200px",
   "2xl": "1536px",
-});
+};
 
 const themeConfig = {
   initialColorMode: "dark",
@@ -26,14 +27,17 @@ const themeConfig = {
 
 const theme = extendTheme({ breakpoints, themeConfig });
 
-function EzSignal({ Component, pageProps }) {
+function EzSignal({ Component, ...rest }) {
+  const { store, props } = wrapper.useWrappedStore(rest);
   return (
-    <ChakraProvider theme={theme}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </ChakraProvider>
+    <Provider store={store}>
+      <ChakraProvider theme={theme}>
+        <Layout>
+          <Component {...props.pageProps} />
+        </Layout>
+      </ChakraProvider>
+    </Provider>
   );
 }
 
-export default wrapper.withRedux(EzSignal);
+export default EzSignal;

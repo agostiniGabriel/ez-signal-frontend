@@ -2,73 +2,82 @@
  * @description       : File Upload.
  * @author            : Gabriel Agostini
  * @group             :
- * @last modified on  : 15-11-2023
+ * @last modified on  : 19-11-2023
  * @last modified by  : Gabriel Agostini
  **/
 
 import {
   Input,
-  FormControl,
-  FormLabel,
   InputGroup,
   InputLeftElement,
-  FormErrorMessage,
   Icon,
+  Text,
+  Button,
+  VStack,
 } from "@chakra-ui/react";
 import { FiFile } from "react-icons/fi";
-import { useController } from "react-hook-form";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateFilesToUpload } from "../../store/filesSlice";
 
 export const FileUpload = ({
   name,
-  placeholder,
   acceptedFileTypes,
-  control,
-  children,
-  isRequired = false,
+  allowMultipleFiles = false,
 }) => {
+  const dispatch = useDispatch();
   const inputRef = useRef();
-  const {
-    field: { ref, onChange, value, ...inputProps },
-    fieldState: { invalid, isTouched, isDirty },
-  } = useController({
-    name,
-    control,
-    rules: { required: isRequired },
-  });
+  const [valueString, setValueString] = useState("");
+  const [selectedFiles, setSelectedFiles] = useState(0);
+  let fileList = [];
+
+  const handleChange = async (event) => {
+    const fileObject = event.target.files;
+    fileList = Object.keys(event.target.files).map((key) => {
+      return fileObject[key];
+    });
+    setValueString(
+      fileList.reduce(
+        (accumulator, currentValue) => accumulator + "; " + currentValue.name,
+        ""
+      )
+    );
+    setSelectedFiles(fileList.length);
+    dispatch(updateFilesToUpload(fileList || []));
+  };
+
+  const handleUpload = () => {};
 
   return (
-    <FormControl isInvalid={invalid} isRequired>
-      <FormLabel htmlFor="writeUpFile">{children}</FormLabel>
+    <VStack alignItems="flex-start" flexGrow="1">
       <InputGroup>
         <InputLeftElement pointerEvents="none">
           <Icon as={FiFile} />
         </InputLeftElement>
         <input
           type="file"
-          onChange={(e) => onChange(e.target.files[0])}
+          onChange={handleChange}
           accept={acceptedFileTypes}
+          multiple={allowMultipleFiles || false}
           name={name}
           ref={inputRef}
-          {...inputProps}
           style={{ display: "none" }}
         />
         <Input
-          placeholder={placeholder || "Your file ..."}
+          placeholder="Nenhum arquivo selecionado..."
           onClick={() => inputRef.current.click()}
-          // onChange={(e) => {}}
           readOnly={true}
-          value={(value && value.name) || ""}
+          value={valueString || ""}
         />
       </InputGroup>
-      <FormErrorMessage>{invalid}</FormErrorMessage>
-    </FormControl>
+      <Text padding={1} fontSize="small">
+        {selectedFiles} arquivos selecionados.
+      </Text>
+      <Button colorScheme="blue" onClick={handleUpload} alignSelf="flex-end">
+        Upload
+      </Button>
+    </VStack>
   );
-};
-
-FileUpload.defaultProps = {
-  acceptedFileTypes: "",
-  allowMultipleFiles: false,
 };
 
 export default FileUpload;
