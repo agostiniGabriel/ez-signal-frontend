@@ -6,6 +6,7 @@ import { HYDRATE } from "next-redux-wrapper";
 const initialState = {
   indexedFiles: {},
   filesToUpload: [],
+  filesUploding: [],
 };
 
 export const filesSlice = createSlice({
@@ -17,6 +18,17 @@ export const filesSlice = createSlice({
     },
     updateFilesToUpload(state, action) {
       state.filesToUpload = [...state.filesToUpload, ...action.payload];
+    },
+    updateFilesUploding(state, action) {
+      state.filesUploding = [...state.filesUploding, ...action.payload];
+    },
+    cleanFilesToUpload(state, _action) {
+      state.filesToUpload = [];
+    },
+    removeFileFromUploadingList(state, action) {
+      state.filesUploding = state.filesUploding.filter(
+        (file) => file.id !== action.payload
+      );
     },
   },
 
@@ -30,7 +42,14 @@ export const filesSlice = createSlice({
   },
 });
 
-export const { updateIndexedFiles, updateFilesToUpload } = filesSlice.actions;
+export const {
+  updateIndexedFiles,
+  updateFilesToUpload,
+  updateFilesUploding,
+  cleanFilesToUpload,
+  removeFileFromUploadingList,
+} = filesSlice.actions;
 export const selectIndexedFiles = (state) => state.files.indexedFiles;
 export const selectFilesToUpload = (state) => state.files.filesToUpload;
+export const selectFilesUploading = (state) => state.files.filesUploding;
 export default filesSlice.reducer;

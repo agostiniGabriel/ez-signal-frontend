@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Gabriel Agostini
  * @group             :
- * @last modified on  : 19-11-2023
+ * @last modified on  : 20-11-2023
  * @last modified by  : Gabriel Agostini
  **/
 
@@ -25,7 +25,7 @@ export default function Home() {
         <Flex flexDirection="row" alignItems="center">
           <WaveBox
             boxSize={{
-              height: "200",
+              height: "150",
               width: "100%",
             }}
           >

@@ -2,7 +2,7 @@
  * @description       : File Upload.
  * @author            : Gabriel Agostini
  * @group             :
- * @last modified on  : 19-11-2023
+ * @last modified on  : 20-11-2023
  * @last modified by  : Gabriel Agostini
  **/
 
@@ -17,8 +17,17 @@ import {
 } from "@chakra-ui/react";
 import { FiFile } from "react-icons/fi";
 import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { updateFilesToUpload } from "../../store/filesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  updateFilesToUpload,
+  selectFilesToUpload,
+  selectFilesUploading,
+  updateFilesUploding,
+  updateIndexedFiles,
+  cleanFilesToUpload,
+  removeFileFromUploadingList,
+} from "../../store/filesSlice";
+import { v4 as uuidv4 } from "uuid";
 
 export const FileUpload = ({
   name,
@@ -29,24 +38,51 @@ export const FileUpload = ({
   const inputRef = useRef();
   const [valueString, setValueString] = useState("");
   const [selectedFiles, setSelectedFiles] = useState(0);
-  let fileList = [];
+  const fileList = useSelector(selectFilesToUpload);
+  const filesUploading = useSelector(selectFilesUploading);
 
   const handleChange = async (event) => {
     const fileObject = event.target.files;
-    fileList = Object.keys(event.target.files).map((key) => {
-      return fileObject[key];
+    const tempFileList = Object.keys(event.target.files).map((key) => {
+      const file = fileObject[key];
+      file.extension = file.name.split(".").at(-1) || "";
+      file.id = `${uuidv4()}.${file.extension}`;
+      file.isUploading = false;
+      return file;
     });
     setValueString(
-      fileList.reduce(
-        (accumulator, currentValue) => accumulator + "; " + currentValue.name,
+      tempFileList.reduce(
+        (accumulator, currentValue) => accumulator + currentValue.name + "; ",
         ""
       )
     );
-    setSelectedFiles(fileList.length);
-    dispatch(updateFilesToUpload(fileList || []));
+    setSelectedFiles(tempFileList.length);
+    dispatch(updateFilesToUpload(tempFileList || []));
   };
 
-  const handleUpload = () => {};
+  const handleUpload = () => {
+    fileList.map((f) => {
+      const body = new FormData();
+      body.append("file", f);
+      body.append("id", f.id);
+      fetch("/api/uploadFile", {
+        method: "POST",
+        body,
+      }).then((response) => {
+        handleUploadFinished(response, f);
+      });
+      return f;
+    });
+    dispatch(updateFilesUploding(fileList));
+    dispatch(cleanFilesToUpload([]));
+  };
+
+  const handleUploadFinished = (res, file) => {
+    const newAvailableFile = {};
+    newAvailableFile[file.id] = file;
+    dispatch(updateIndexedFiles(newAvailableFile));
+    dispatch(removeFileFromUploadingList(file.id));
+  };
 
   return (
     <VStack alignItems="flex-start" flexGrow="1">
@@ -73,8 +109,13 @@ export const FileUpload = ({
       <Text padding={1} fontSize="small">
         {selectedFiles} arquivos selecionados.
       </Text>
-      <Button colorScheme="blue" onClick={handleUpload} alignSelf="flex-end">
-        Upload
+      <Button
+        isDisabled={fileList.length === 0}
+        colorScheme="blue"
+        onClick={handleUpload}
+        alignSelf="flex-end"
+      >
+        Confirmar Upload
       </Button>
     </VStack>
   );

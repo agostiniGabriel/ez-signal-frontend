@@ -8,6 +8,10 @@ const store = () =>
       [filesSlice.name]: filesSlice.reducer,
     },
     devTools: true,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: false,
+      }),
   });
 
 export const wrapper = createWrapper(store);
