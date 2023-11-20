@@ -1,25 +1,37 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 
-// Files is not a list, since we are indexing it by name
+//indexedFiles == arquivos que estao disponiveis no blob storage - chave é o nome do arquivo no computador do usuario
+//filesToUpload == fila de arquivos que ainda estao em proccesso de upload.
 const initialState = {
-  availableFiles: {
-    teste: { id: "dasdadasd", fileName: "teste", extension: ".wav" },
-  },
+  indexedFiles: {},
+  filesToUpload: [],
+  filesUploding: [],
 };
 
-// Actual Slice
 export const filesSlice = createSlice({
   name: "files",
   initialState,
   reducers: {
-    // Action to set the authentication status
-    updateFiles(state, action) {
-      state.availableFiles = { ...state.availableFiles, ...action.payload };
+    updateIndexedFiles(state, action) {
+      state.indexedFiles = { ...state.indexedFiles, ...action.payload };
+    },
+    updateFilesToUpload(state, action) {
+      state.filesToUpload = [...state.filesToUpload, ...action.payload];
+    },
+    updateFilesUploding(state, action) {
+      state.filesUploding = [...state.filesUploding, ...action.payload];
+    },
+    cleanFilesToUpload(state, _action) {
+      state.filesToUpload = [];
+    },
+    removeFileFromUploadingList(state, action) {
+      state.filesUploding = state.filesUploding.filter(
+        (file) => file.id !== action.payload
+      );
     },
   },
 
-  // Special reducer for hydrating the state. Special case for next-redux-wrapper
   extraReducers: {
     [HYDRATE]: (state, action) => {
       return {
@@ -30,8 +42,14 @@ export const filesSlice = createSlice({
   },
 });
 
-export const { updateFiles } = filesSlice.actions;
-
-export const selectFilesState = (state) => state.files.availableFiles;
-
+export const {
+  updateIndexedFiles,
+  updateFilesToUpload,
+  updateFilesUploding,
+  cleanFilesToUpload,
+  removeFileFromUploadingList,
+} = filesSlice.actions;
+export const selectIndexedFiles = (state) => state.files.indexedFiles;
+export const selectFilesToUpload = (state) => state.files.filesToUpload;
+export const selectFilesUploading = (state) => state.files.filesUploding;
 export default filesSlice.reducer;

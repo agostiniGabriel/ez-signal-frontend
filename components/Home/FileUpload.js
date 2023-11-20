@@ -2,73 +2,123 @@
  * @description       : File Upload.
  * @author            : Gabriel Agostini
  * @group             :
- * @last modified on  : 15-11-2023
+ * @last modified on  : 20-11-2023
  * @last modified by  : Gabriel Agostini
  **/
 
 import {
   Input,
-  FormControl,
-  FormLabel,
   InputGroup,
   InputLeftElement,
-  FormErrorMessage,
   Icon,
+  Text,
+  Button,
+  VStack,
 } from "@chakra-ui/react";
 import { FiFile } from "react-icons/fi";
-import { useController } from "react-hook-form";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  updateFilesToUpload,
+  selectFilesToUpload,
+  selectFilesUploading,
+  updateFilesUploding,
+  updateIndexedFiles,
+  cleanFilesToUpload,
+  removeFileFromUploadingList,
+} from "../../store/filesSlice";
+import { v4 as uuidv4 } from "uuid";
 
 export const FileUpload = ({
   name,
-  placeholder,
   acceptedFileTypes,
-  control,
-  children,
-  isRequired = false,
+  allowMultipleFiles = false,
 }) => {
+  const dispatch = useDispatch();
   const inputRef = useRef();
-  const {
-    field: { ref, onChange, value, ...inputProps },
-    fieldState: { invalid, isTouched, isDirty },
-  } = useController({
-    name,
-    control,
-    rules: { required: isRequired },
-  });
+  const [valueString, setValueString] = useState("");
+  const [selectedFiles, setSelectedFiles] = useState(0);
+  const fileList = useSelector(selectFilesToUpload);
+  const filesUploading = useSelector(selectFilesUploading);
+
+  const handleChange = async (event) => {
+    const fileObject = event.target.files;
+    const tempFileList = Object.keys(event.target.files).map((key) => {
+      const file = fileObject[key];
+      file.extension = file.name.split(".").at(-1) || "";
+      file.id = `${uuidv4()}.${file.extension}`;
+      file.isUploading = false;
+      return file;
+    });
+    setValueString(
+      tempFileList.reduce(
+        (accumulator, currentValue) => accumulator + currentValue.name + "; ",
+        ""
+      )
+    );
+    setSelectedFiles(tempFileList.length);
+    dispatch(updateFilesToUpload(tempFileList || []));
+  };
+
+  const handleUpload = () => {
+    fileList.map((f) => {
+      const body = new FormData();
+      body.append("file", f);
+      body.append("id", f.id);
+      fetch("/api/uploadFile", {
+        method: "POST",
+        body,
+      }).then((response) => {
+        handleUploadFinished(response, f);
+      });
+      return f;
+    });
+    dispatch(updateFilesUploding(fileList));
+    dispatch(cleanFilesToUpload([]));
+  };
+
+  const handleUploadFinished = (res, file) => {
+    const newAvailableFile = {};
+    newAvailableFile[file.id] = file;
+    dispatch(updateIndexedFiles(newAvailableFile));
+    dispatch(removeFileFromUploadingList(file.id));
+  };
 
   return (
-    <FormControl isInvalid={invalid} isRequired>
-      <FormLabel htmlFor="writeUpFile">{children}</FormLabel>
+    <VStack alignItems="flex-start" flexGrow="1">
       <InputGroup>
         <InputLeftElement pointerEvents="none">
           <Icon as={FiFile} />
         </InputLeftElement>
         <input
           type="file"
-          onChange={(e) => onChange(e.target.files[0])}
+          onChange={handleChange}
           accept={acceptedFileTypes}
+          multiple={allowMultipleFiles || false}
           name={name}
           ref={inputRef}
-          {...inputProps}
           style={{ display: "none" }}
         />
         <Input
-          placeholder={placeholder || "Your file ..."}
+          placeholder="Nenhum arquivo selecionado..."
           onClick={() => inputRef.current.click()}
-          // onChange={(e) => {}}
           readOnly={true}
-          value={(value && value.name) || ""}
+          value={valueString || ""}
         />
       </InputGroup>
-      <FormErrorMessage>{invalid}</FormErrorMessage>
-    </FormControl>
+      <Text padding={1} fontSize="small">
+        {selectedFiles} arquivos selecionados.
+      </Text>
+      <Button
+        isDisabled={fileList.length === 0}
+        colorScheme="blue"
+        onClick={handleUpload}
+        alignSelf="flex-end"
+      >
+        Confirmar Upload
+      </Button>
+    </VStack>
   );
-};
-
-FileUpload.defaultProps = {
-  acceptedFileTypes: "",
-  allowMultipleFiles: false,
 };
 
 export default FileUpload;
