@@ -19,7 +19,7 @@ export const config = {
 
 const post = async (req, res) => {
   const form = formidable();
-  form.parse(req, async function (_err, fields, files) {
+  return form.parse(req, async function (_err, fields, files) {
     const hasError = await saveFile(files.file[0], fields);
     return res.status(hasError ? 500 : 201).send(fields.id[0]);
   });

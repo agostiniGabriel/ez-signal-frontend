@@ -2,7 +2,7 @@
  * @description       : Painel com os assets disponíveis.
  * @author            : Gabriel Agostini
  * @group             :
- * @last modified on  : 20-11-2023
+ * @last modified on  : 22-11-2023
  * @last modified by  : Gabriel Agostini
  **/
 
@@ -28,16 +28,29 @@ import {
   Tab,
   TabPanels,
   TabPanel,
+  Box,
 } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
 import FileUpload from "./FileUpload";
 import AssetsList from "./AssetsList";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function AssetsPanel() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const uploadBtnRef = useRef();
-  const searchFileRef = useRef();
+  const [searchValue, setSearchValue] = useState("");
+  const [previousValue, setPreviousValue] = useState("");
+
+  const handleSearch = (event) => {
+    const { value } = event.target;
+    if (
+      searchValue.length - previousValue.length > 2 ||
+      searchValue.length - previousValue.length < 2
+    ) {
+      setPreviousValue(searchValue);
+      setSearchValue(value);
+    }
+  };
   return (
     <Container maxW="20%">
       <Tabs colorScheme="blue">
@@ -60,9 +73,17 @@ export default function AssetsPanel() {
                 <InputLeftElement pointerEvents="none">
                   <Search2Icon color="gray.300" />
                 </InputLeftElement>
-                <Input width="auto" placeholder="Procurar" />
+                <Input
+                  width="auto"
+                  placeholder="Procurar"
+                  onChange={handleSearch}
+                />
               </InputGroup>
             </HStack>
+            <Divider maxW="90%" padding={4}></Divider>
+            <Box height={"49vh"} overflowY="scroll">
+              <AssetsList filter={searchValue} allowDrag={true}></AssetsList>
+            </Box>
           </TabPanel>
           <TabPanel>
             <InputGroup>
