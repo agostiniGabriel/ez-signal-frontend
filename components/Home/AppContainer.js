@@ -2,13 +2,14 @@
  * @description       :
  * @author            : Gabriel Agostini
  * @group             :
- * @last modified on  : 19-11-2023
+ * @last modified on  : 22-11-2023
  * @last modified by  : Gabriel Agostini
  **/
 
-import { Container, Flex } from "@chakra-ui/react";
+import { Container, HStack } from "@chakra-ui/react";
 
 import AssetsPanel from "./AssetsPanel";
+import FlowCanvas from "./FlowCanvas";
 
 function AppContainer() {
   return (
@@ -18,9 +19,10 @@ function AppContainer() {
       boxShadow="dark-lg"
       padding="8"
     >
-      <Flex alignContent="flex-start" justifyContent="">
+      <HStack spacing={4} alignItems="flex-start">
         <AssetsPanel></AssetsPanel>
-      </Flex>
+        <FlowCanvas></FlowCanvas>
+      </HStack>
     </Container>
   );
 }

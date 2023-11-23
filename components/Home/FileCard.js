@@ -2,7 +2,7 @@
  * @description       : Card para display dos files.
  * @author            : Gabriel Agostini
  * @group             :
- * @last modified on  : 20-11-2023
+ * @last modified on  : 22-11-2023
  * @last modified by  : Gabriel Agostini
  **/
 
@@ -22,11 +22,11 @@ export const FileCard = ({
   fileProps = {},
 }) => {
   if (isInUploadQueue) {
-    return awaitingUploadCard({ fileProps });
+    return AwaitingUploadCard({ fileProps });
   } else if (isUploading) {
-    return uploadingCard({ fileProps });
+    return UploadingCard({ fileProps });
   } else {
-    return availableCard({ fileProps });
+    return AvailableCard({ fileProps });
   }
 };
 
@@ -40,7 +40,7 @@ export const getIcon = (extension) => {
   return icons[extension] || "🤔";
 };
 
-const awaitingUploadCard = ({ fileProps = {} }) => {
+const AwaitingUploadCard = ({ fileProps = {} }) => {
   return (
     <Card w="100%">
       <CardBody>
@@ -56,7 +56,7 @@ const awaitingUploadCard = ({ fileProps = {} }) => {
   );
 };
 
-const uploadingCard = ({ fileProps = {} }) => {
+const UploadingCard = ({ fileProps = {} }) => {
   return (
     <Card w="100%">
       <CardBody>
@@ -78,7 +78,7 @@ const uploadingCard = ({ fileProps = {} }) => {
   );
 };
 
-const availableCard = ({ fileProps = {} }) => {
+const AvailableCard = ({ fileProps = {} }) => {
   return (
     <Card w="100%">
       <CardBody>
