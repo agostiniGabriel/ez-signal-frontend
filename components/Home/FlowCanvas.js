@@ -29,7 +29,7 @@ export default function FlowCanvas() {
 
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
-    []
+    [setEdges]
   );
 
   const onDragOver = useCallback((event) => {
@@ -60,7 +60,7 @@ export default function FlowCanvas() {
 
       setNodes((nds) => nds.concat(newNode));
     },
-    [reactFlowInstance]
+    [reactFlowInstance, setNodes]
   );
 
   return (
