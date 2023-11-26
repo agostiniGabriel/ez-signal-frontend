@@ -1,20 +1,32 @@
 /**
  * @description       : Animacao de wave com conteudo centrado
  * @author            : Gabriel Agostini
- * @group             : 
- * @last modified on  : 23-02-2022
+ * @group             :
+ * @last modified on  : 26-11-2023
  * @last modified by  : Gabriel Agostini
-**/
-import { Box, Center, Flex } from '@chakra-ui/react';
+ **/
+import { Box, Center, Flex } from "@chakra-ui/react";
 
-function WaveBox({ children , boxSize }){
-    return (
-        <Flex margin={4} boxShadow='lg' borderRadius='lg' justifyContent='center'>
-            <Box width={boxSize.width} height={boxSize.height}  borderRadius='lg' alignItems='center' overflow='hidden'>
-                <Box zIndex={0} position='relative'>
-                    <svg width="250%" id="svg" viewBox="0 0 1440 700" xmlns="http://www.w3.org/2000/svg" className="transition duration-300 ease-in-out delay-150">
-                        <style jsx>
-                        {`
+function WaveBox({ children, boxSize }) {
+  return (
+    <Flex margin={4} boxShadow="lg" borderRadius="lg" justifyContent="center">
+      <Box
+        width={boxSize.width}
+        height={boxSize.height}
+        borderRadius="lg"
+        alignItems="center"
+        overflow="hidden"
+      >
+        <Box zIndex={0} position="relative">
+          <svg
+            width="250%"
+            id="svg"
+            viewBox="0 0 1440 700"
+            xmlns="http://www.w3.org/2000/svg"
+            className="transition duration-300 ease-in-out delay-150"
+          >
+            <style>
+              {`
                             .path-0{
                                 animation:pathAnim-0 4s;
                                 animation-timing-function: linear;
@@ -38,10 +50,23 @@ function WaveBox({ children , boxSize }){
                                 }
                             }
                         `}
-                        </style>
-                        <defs><linearGradient id="gradient" x1="7%" y1="25%" x2="93%" y2="75%"><stop offset="5%" stopColor="#1a365d66"></stop><stop offset="95%" stopColor="#8ed1fc66"></stop></linearGradient></defs><path d="M 0,700 C 0,700 0,175 0,175 C 108.57142857142858,179.64285714285714 217.14285714285717,184.28571428571428 331,166 C 444.85714285714283,147.71428571428572 564,106.50000000000003 702,113 C 840,119.49999999999997 996.8571428571429,173.7142857142857 1123,192 C 1249.142857142857,210.2857142857143 1344.5714285714284,192.64285714285717 1440,175 C 1440,175 1440,700 1440,700 Z" stroke="none" strokeWidth="0" fill="url(#gradient)" className="transition-all duration-300 ease-in-out delay-150 path-0" transform="rotate(-180 720 350)"></path>
-                        <style jsx>
-                        {`
+            </style>
+            <defs>
+              <linearGradient id="gradient" x1="7%" y1="25%" x2="93%" y2="75%">
+                <stop offset="5%" stopColor="#1a365d66"></stop>
+                <stop offset="95%" stopColor="#8ed1fc66"></stop>
+              </linearGradient>
+            </defs>
+            <path
+              d="M 0,700 C 0,700 0,175 0,175 C 108.57142857142858,179.64285714285714 217.14285714285717,184.28571428571428 331,166 C 444.85714285714283,147.71428571428572 564,106.50000000000003 702,113 C 840,119.49999999999997 996.8571428571429,173.7142857142857 1123,192 C 1249.142857142857,210.2857142857143 1344.5714285714284,192.64285714285717 1440,175 C 1440,175 1440,700 1440,700 Z"
+              stroke="none"
+              strokeWidth="0"
+              fill="url(#gradient)"
+              className="transition-all duration-300 ease-in-out delay-150 path-0"
+              transform="rotate(-180 720 350)"
+            ></path>
+            <style>
+              {`
                             
                             .path-1{
                                 animation:pathAnim-1 4s;
@@ -66,10 +91,23 @@ function WaveBox({ children , boxSize }){
                                 }
                             }
                         `}
-                        </style>
-                        <defs><linearGradient id="gradient" x1="7%" y1="25%" x2="93%" y2="75%"><stop offset="5%" stopColor="#1a365d88"></stop><stop offset="95%" stopColor="#8ed1fc88"></stop></linearGradient></defs><path d="M 0,700 C 0,700 0,350 0,350 C 117.71428571428572,378.67857142857144 235.42857142857144,407.35714285714283 343,410 C 450.57142857142856,412.64285714285717 547.9999999999999,389.25 676,358 C 804.0000000000001,326.75 962.5714285714287,287.6428571428571 1095,285 C 1227.4285714285713,282.3571428571429 1333.7142857142858,316.17857142857144 1440,350 C 1440,350 1440,700 1440,700 Z" stroke="none" strokeWidth="0" fill="url(#gradient)" className="transition-all duration-300 ease-in-out delay-150 path-1" transform="rotate(-180 720 350)"></path>
-                        <style jsx>
-                        {`
+            </style>
+            <defs>
+              <linearGradient id="gradient" x1="7%" y1="25%" x2="93%" y2="75%">
+                <stop offset="5%" stopColor="#1a365d88"></stop>
+                <stop offset="95%" stopColor="#8ed1fc88"></stop>
+              </linearGradient>
+            </defs>
+            <path
+              d="M 0,700 C 0,700 0,350 0,350 C 117.71428571428572,378.67857142857144 235.42857142857144,407.35714285714283 343,410 C 450.57142857142856,412.64285714285717 547.9999999999999,389.25 676,358 C 804.0000000000001,326.75 962.5714285714287,287.6428571428571 1095,285 C 1227.4285714285713,282.3571428571429 1333.7142857142858,316.17857142857144 1440,350 C 1440,350 1440,700 1440,700 Z"
+              stroke="none"
+              strokeWidth="0"
+              fill="url(#gradient)"
+              className="transition-all duration-300 ease-in-out delay-150 path-1"
+              transform="rotate(-180 720 350)"
+            ></path>
+            <style>
+              {`
                             .path-2{
                                 animation:pathAnim-2 4s;
                                 animation-timing-function: linear;
@@ -93,16 +131,29 @@ function WaveBox({ children , boxSize }){
                                 }
                             }
                         `}
-                        </style>
-                        <defs><linearGradient id="gradient" x1="7%" y1="25%" x2="93%" y2="75%"><stop offset="5%" stopColor="#1a365dff"></stop><stop offset="95%" stopColor="#8ed1fcff"></stop></linearGradient></defs><path d="M 0,700 C 0,700 0,525 0,525 C 159.6071428571429,495.82142857142856 319.2142857142858,466.64285714285717 419,489 C 518.7857142857142,511.35714285714283 558.7499999999998,585.2500000000001 673,582 C 787.2500000000002,578.7499999999999 975.7857142857144,498.35714285714283 1116,476 C 1256.2142857142856,453.64285714285717 1348.1071428571427,489.32142857142856 1440,525 C 1440,525 1440,700 1440,700 Z" stroke="none" strokeWidth="0" fill="url(#gradient)" className="transition-all duration-300 ease-in-out delay-150 path-2" transform="rotate(-180 720 350)"></path>
-                    </svg>
-                    <Flex position='absolute' top={0} wrap='wrap' justifyContent='center'>
-                        {children}
-                    </Flex>
-                </Box>
-            </Box>
-        </Flex>       
-    )
+            </style>
+            <defs>
+              <linearGradient id="gradient" x1="7%" y1="25%" x2="93%" y2="75%">
+                <stop offset="5%" stopColor="#1a365dff"></stop>
+                <stop offset="95%" stopColor="#8ed1fcff"></stop>
+              </linearGradient>
+            </defs>
+            <path
+              d="M 0,700 C 0,700 0,525 0,525 C 159.6071428571429,495.82142857142856 319.2142857142858,466.64285714285717 419,489 C 518.7857142857142,511.35714285714283 558.7499999999998,585.2500000000001 673,582 C 787.2500000000002,578.7499999999999 975.7857142857144,498.35714285714283 1116,476 C 1256.2142857142856,453.64285714285717 1348.1071428571427,489.32142857142856 1440,525 C 1440,525 1440,700 1440,700 Z"
+              stroke="none"
+              strokeWidth="0"
+              fill="url(#gradient)"
+              className="transition-all duration-300 ease-in-out delay-150 path-2"
+              transform="rotate(-180 720 350)"
+            ></path>
+          </svg>
+          <Flex position="absolute" top={0} wrap="wrap" justifyContent="center">
+            {children}
+          </Flex>
+        </Box>
+      </Box>
+    </Flex>
+  );
 }
 
 export default WaveBox;
